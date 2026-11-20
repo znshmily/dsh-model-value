@@ -67,7 +67,11 @@ window.__ModuleLoader__.load({
         'pin.title': '固定到输入框菜单顶部',
         'pin.hint': '勾选后会加到输入框菜单里（推荐固定在顶部，勾选的全部显示）',
         'missing.iq': '智力未收录',
-        'meta.asOf': '数据时间',
+        'meta.asOfSnapshot': '数据时间 {date}（快照）',
+        'meta.asOfOnline': '数据时间 {date}（在线 {n} 个）',
+        'meta.asOfPartial': '{n} 个未更新',
+        'meta.asOfFailed': '在线更新失败（{n} 个）',
+        'meta.scoreAsOf': '智力快照 {date}',
         'meta.sources': '数据来源',
         'meta.count': '{n} 个模型',
         'meta.weights': '权重 {w}',
@@ -137,7 +141,11 @@ window.__ModuleLoader__.load({
         'pin.title': 'Pin to the top of the composer menu',
         'pin.hint': 'Checked models are added to the composer menu (recommendations stay on top)',
         'missing.iq': 'No score on file',
-        'meta.asOf': 'Data as of',
+        'meta.asOfSnapshot': 'Data as of {date} (snapshot)',
+        'meta.asOfOnline': 'Data as of {date} (online, {n} models)',
+        'meta.asOfPartial': '{n} not updated',
+        'meta.asOfFailed': 'online refresh failed ({n})',
+        'meta.scoreAsOf': 'scores as of {date}',
         'meta.sources': 'Sources',
         'meta.count': '{n} models',
         'meta.weights': 'mix {w}',
@@ -779,6 +787,33 @@ window.__ModuleLoader__.load({
       const counts = data !== null && data.counts ? data.counts : {}
 
       /**
+       * What the date on screen actually describes.
+       *
+       * The price snapshot ships with the release and never moves at runtime; a
+       * refresh replaces prices for the keys OpenRouter still lists and stamps
+       * its own date. So the line names which one is in use — plus how many models
+       * failed, because a refresh that visibly changes nothing reads as a bug.
+       * The intelligence index is bundled too, so it gets its own date whenever it
+       * differs from the price date.
+       */
+      const asOf = data !== null && data.asOf ? data.asOf : null
+      const asOfText = (() => {
+        if (asOf === null || !asOf.effective) return ''
+        const date = formatDate(asOf.effective)
+        const failed = num(asOf.onlineFailed) ?? 0
+        if (asOf.effectiveSource === 'online') {
+          const online = t('meta.asOfOnline', { date, n: num(asOf.onlineModels) ?? 0 })
+          return failed > 0 ? `${online} · ${t('meta.asOfPartial', { n: failed })}` : online
+        }
+        const snapshot = t('meta.asOfSnapshot', { date })
+        return failed > 0 ? `${snapshot} · ${t('meta.asOfFailed', { n: failed })}` : snapshot
+      })()
+      const scoreAsOfText =
+        asOf !== null && asOf.scores && asOf.scores !== asOf.effective
+          ? t('meta.scoreAsOf', { date: formatDate(asOf.scores) })
+          : ''
+
+      /**
        * The merged table: connected channels and market models in one list with
        * one numbering. `allRank` is scored on the Host across both sets; a row
        * without one (a market row that lost its score, say) sinks to the end
@@ -1019,9 +1054,8 @@ window.__ModuleLoader__.load({
               ? h('span', { key: 'count' }, t('meta.count', { n: counts.distinct ?? ranked.length }))
               : null,
             weights !== '' ? h('span', { key: 'w' }, t('meta.weights', { w: weights })) : null,
-            data !== null && data.asOf && data.asOf.prices
-              ? h('span', { key: 'asof' }, `${t('meta.asOf')} ${formatDate(data.asOf.prices)}`)
-              : null,
+            asOfText !== '' ? h('span', { key: 'asof' }, asOfText) : null,
+            scoreAsOfText !== '' ? h('span', { key: 'scoreasof' }, scoreAsOfText) : null,
             data !== null && data.index
               ? h('span', { key: 'index' }, `${data.index.name || 'IQ'}${data.index.version ? ` ${data.index.version}` : ''}`)
               : null,

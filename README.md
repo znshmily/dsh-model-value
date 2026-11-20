@@ -77,9 +77,11 @@ Settings → Plugins → Plugins configuration → **Model value** (`weightInput
 
 Bundled snapshot: **509 price entries** and **176 intelligence scores** (155 measured, 21 derived) from the **Artificial Analysis Intelligence Index v5.0.1**, prices as of **2026-11-17**.
 
-- Prices: the OpenRouter catalogue; intelligence: Artificial Analysis, via the public [aiapiindex.com](https://aiapiindex.com) mirror (CC BY 4.0). `tools/sync-sources.mjs` re-syncs, `tools/fill-gaps.mjs` covers models the mirror has not caught up with.
+- Prices: the OpenRouter catalogue; intelligence: Artificial Analysis, via the public [aiapiindex.com](https://aiapiindex.com) mirror (CC BY 4.0). `npm run sync` (`tools/sync-sources.mjs`) re-syncs, `tools/fill-gaps.mjs` covers models the mirror has not caught up with.
 - `tools/seed-market.mjs` regenerates the market-model seed used by the panel.
 - The only outbound request the plugin makes is the optional OpenRouter price refresh. There is no telemetry, and no data leaves your machine otherwise.
+
+**The snapshot only changes with a release** — nothing at runtime rewrites `data/*.json`. So the panel names where its numbers came from: `Data as of 2026-11-17 (snapshot)` until you press **Refresh**, then `Data as of 2026-11-21 (online, 40 models)`, because the refresh replaces prices for the keys OpenRouter still lists and waits for them before answering. A refresh that fails on every key keeps the snapshot date and says so (`online refresh failed (9)`), and since the intelligence index ships with the package it gets its own `scores as of …` line whenever the two dates differ. Online prices live in memory only: restart the host and you are back to the snapshot, which is the point — refresh when you want fresher numbers, otherwise the bundled data is what you get.
 
 Snapshot data can be wrong, and providers change prices without notice — treat the numbers as a shopping aid, not a bill.
 
@@ -87,7 +89,7 @@ Snapshot data can be wrong, and providers change prices without notice — treat
 
 ```sh
 node test/units.mjs      # key matching, blended price, sorting, groups, payload, pins, tool, select route
-node test/client.mjs     # headless render of the real client bundle (12 scenarios)
+node test/client.mjs     # headless render of the real client bundle (13 scenarios)
 node --check index.js && node --check client.js
 ```
 

@@ -345,7 +345,7 @@ def build(cv):
     segmented(cv, cursor, title_y - 12, ['性价比', '单价', '智力'], 0)
 
     meta_y = title_y + 47
-    cv.text(CONTENT_X, meta_y, '120 个模型 · 权重 3:1 · 数据时间 2026-11-17 · Artificial Analysis v5.0.1', 11, C['caption'])
+    cv.text(CONTENT_X, meta_y, '120 个模型 · 权重 3:1 · 数据时间 2026-11-17（快照） · Artificial Analysis v5.0.1', 11, C['caption'])
     cv.text(CONTENT_X, meta_y + 17, '已隐藏 11 个免费模型 · 26 个无智力评分 · 31 个无价格', 11, C['caption'])
     cv.rect(CONTENT_X, meta_y + 25, 2, 16, fill=C['brand'], rx=1)
     cv.text(CONTENT_X + 9, meta_y + 37, '勾选后会加到输入框菜单里（推荐固定在顶部，勾选的全部显示）', 11, C['caption'])

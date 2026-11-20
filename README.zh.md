@@ -77,9 +77,11 @@ effectiveInput = 输入价 × (1 − 缓存命中占比) + 缓存读价 × 缓�
 
 内置快照：**509 条价格**、**176 个智力分**（155 个实测 + 21 个推算），来自 **Artificial Analysis Intelligence Index v5.0.1**，价格截止 **2026-11-17**。
 
-- 价格取自 OpenRouter 目录，智力分来自 Artificial Analysis，经公开镜像 [aiapiindex.com](https://aiapiindex.com) 同步（CC BY 4.0）。`tools/sync-sources.mjs` 重新同步，`tools/fill-gaps.mjs` 补齐镜像还没跟上的新模型。
+- 价格取自 OpenRouter 目录，智力分来自 Artificial Analysis，经公开镜像 [aiapiindex.com](https://aiapiindex.com) 同步（CC BY 4.0）。`npm run sync`（即 `tools/sync-sources.mjs`）重新同步，`tools/fill-gaps.mjs` 补齐镜像还没跟上的新模型。
 - `tools/seed-market.mjs` 重新生成面板用的市面模型种子数据。
 - 插件唯一的对外请求是可选的 OpenRouter 报价刷新。没有埋点，除此之外没有任何数据离开你的机器。
+
+**快照只随版本更新** —— 运行时没有任何代码会改写 `data/*.json`。所以面板会写明这些数字是哪来的：没点刷新时是 `数据时间 2026-11-17（快照）`，点过刷新变成 `数据时间 2026-11-21（在线 40 个）`——刷新会替换 OpenRouter 仍在收录的那些键，并且**等抓取完成再返回**，所以一次点击就能看到结果。全部失败时日期不动并显示 `在线更新失败（9 个）`；智力分是随包的，日期与价格不同时会单独补一行 `智力快照 …`。在线价只存在内存里，宿主重启就回到快照 —— 要更新的数字就点刷新，不点就用快照里的数据。
 
 快照数据可能出错，供应商也会不打招呼就调价 —— 把它当购物参考，不要当作账单依据。
 
@@ -87,7 +89,7 @@ effectiveInput = 输入价 × (1 − 缓存命中占比) + 缓存读价 × 缓�
 
 ```sh
 node test/units.mjs      # 键匹配、加权单价、排序分组、组内名次、payload、pins、工具与切换接口
-node test/client.mjs     # 无头渲染真实的 client bundle（12 个场景）
+node test/client.mjs     # 无头渲染真实的 client bundle（13 个场景）
 node --check index.js && node --check client.js
 ```
 

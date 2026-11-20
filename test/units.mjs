@@ -39,7 +39,9 @@ const dataOf = (prices, scores, online = { at: 0, errors: [] }) => ({
     index: { name: 'AA', version: 'v5.0.1', url: 'https://example.test' },
     pricesAsOf: '2026-11-16',
     scoresAsOf: '2026-11-16',
-    online,
+    /* The real store derives these from `at`; the fixtures that do not care about
+       freshness get the zero state, which is what an unrefreshed host reports. */
+    online: { date: null, priced: 0, failed: 0, ...online },
     overrides: { error: '', models: 0, scores: 0 },
   }),
 })
@@ -500,7 +502,68 @@ test('refresh only asks OpenRouter for keys it actually prices', async () => {
   )
   const errors = store.status().onlineErrors
   assert.equal(errors.length, requested.length, 'every failed request is still reported')
-  assert.ok(store.status().onlineAt > 0, 'a forced refresh records its timestamp')
+  /* The timestamp is the age of the prices in use, not of the last attempt: a run
+     where nothing was priced leaves it at zero, so the panel keeps saying
+     "snapshot" instead of claiming today's date for yesterday's numbers. */
+  assert.equal(store.status().onlineAt, 0, 'a run that priced nothing records no timestamp')
+})
+
+test('a forced refresh lands in the same payload, with its own date', async () => {
+  const config = configOf({ onlineRefresh: true })
+  const store = createDataStore({ logger: { info() {}, warn() {} } }, () => config)
+  const catalog = catalogOf([
+    { id: 'commandcode', name: 'Command Code', models: [{ id: 'anthropic/claude-haiku-5.5', name: 'Claude Haiku 5.5' }] },
+  ])
+  const realFetch = globalThis.fetch
+
+  const before = await buildPayload({ catalog, data: store, config })
+  assert.equal(before.asOf.onlineDate, null, 'nothing has been refreshed yet')
+  assert.equal(before.asOf.effectiveSource, 'snapshot')
+  assert.equal(before.asOf.effective, before.asOf.prices, 'the snapshot date is the one in use')
+
+  globalThis.fetch = async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ data: { endpoints: [{ pricing: { prompt: 0.000001, completion: 0.000002 } }] } }),
+  })
+  try {
+    await store.ensureFresh(true)
+    const after = await buildPayload({ catalog, data: store, config })
+    assert.equal(after.asOf.effectiveSource, 'online', 'the refresh moved the active date')
+    assert.equal(after.asOf.onlineDate, new Date().toISOString().slice(0, 10))
+    assert.equal(after.asOf.effective, after.asOf.onlineDate)
+    assert.ok(after.asOf.onlineModels > 20, 'the keys it priced are counted')
+    assert.equal(after.asOf.onlineFailed, 0)
+    assert.equal(after.asOf.prices, before.asOf.prices, 'the snapshot date itself never moves')
+    /* the prices in the very same response are the refreshed ones */
+    assert.equal(after.rows[0].price.input, 1)
+    assert.equal(after.rows[0].price.output, 2)
+    assert.equal(after.rows[0].priceAsOf, new Date().toISOString().slice(0, 10))
+  } finally {
+    globalThis.fetch = realFetch
+  }
+})
+
+test('a refresh that priced nothing keeps the snapshot date and reports the failure', async () => {
+  const config = configOf({ onlineRefresh: true })
+  const store = createDataStore({ logger: { info() {}, warn() {} } }, () => config)
+  const catalog = catalogOf([
+    { id: 'commandcode', name: 'Command Code', models: [{ id: 'anthropic/claude-haiku-5.5', name: 'Claude Haiku 5.5' }] },
+  ])
+  const realFetch = globalThis.fetch
+  globalThis.fetch = async () => ({ ok: false, status: 404, json: async () => ({}) })
+  try {
+    await store.ensureFresh(true)
+  } finally {
+    globalThis.fetch = realFetch
+  }
+  const payload = await buildPayload({ catalog, data: store, config })
+  assert.equal(payload.asOf.onlineDate, null, 'a run that replaced nothing does not date the panel')
+  assert.equal(payload.asOf.effective, payload.asOf.prices)
+  assert.equal(payload.asOf.effectiveSource, 'snapshot')
+  assert.equal(payload.asOf.onlineModels, 0)
+  assert.ok(payload.asOf.onlineFailed > 20, 'every failed key is counted')
+  assert.ok(payload.warnings.some((line) => line.includes('刷新失败')), payload.warnings.join('\n'))
 })
 
 test('free replicas are billed at zero and keep their intelligence score', async () => {

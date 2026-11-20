@@ -155,7 +155,16 @@ function groupsOf(rows) {
 const payload = {
   ok: true,
   generatedAt: '2026-11-16T12:00:00.000Z',
-  asOf: { prices: '2026-11-16', scores: '2026-11-16', online: null },
+  asOf: {
+    prices: '2026-11-16',
+    scores: '2026-11-16',
+    online: null,
+    onlineDate: null,
+    onlineModels: 0,
+    onlineFailed: 0,
+    effective: '2026-11-16',
+    effectiveSource: 'snapshot',
+  },
   index: { name: 'Artificial Analysis', version: 'v5.0.1', url: 'https://artificialanalysis.ai/leaderboards/models' },
   currency: { code: 'USD', symbol: '$', rate: 1 },
   weights: { input: 0.75, output: 0.25, rawInput: 3, rawOutput: 1, cacheHitShare: 0.5 },
@@ -484,7 +493,7 @@ const scopeButtons = flatten(blocks[0]).filter((node) => node.type === 'button' 
 assert.deepEqual(scopeButtons.map((node) => render(node.props.children)), ['全部', '已接入', '未接入'])
 assert.equal(scopeButtons[0].props['aria-pressed'], 'true', 'the default scope is everything')
 assert.ok(panel.text.includes('Artificial Analysis v5.0.1'))
-assert.ok(panel.text.includes('数据时间 2026-11-16'))
+assert.ok(panel.text.includes('数据时间 2026-11-16（快照）'), 'an unrefreshed host says the date is the snapshot')
 assert.ok(panel.text.includes('1 个提供方的模型目录获取失败'))
 assert.ok(panel.text.includes('openrouter.ai'), 'price source host in the footer')
 assert.ok(panel.text.includes('性价比') && panel.text.includes('单价') && panel.text.includes('智力'), 'sort controls')
@@ -1084,4 +1093,52 @@ assert.ok(copyButton.props['aria-label'].includes('Claude Haiku 5.5'), 'and says
 await copyButton.props.onClick()
 assert.equal(clipboard, 'Claude Haiku 5.5', 'it copies exactly the model name — the string the search matches')
 
-console.log('client harness: 12 scenarios passed')
+/* ------------------------------------------------------------ scenario 13 */
+
+/**
+ * The date line has to say which data is on screen. A refresh replaces prices
+ * for the keys OpenRouter still lists and stamps its own date; the bundled
+ * snapshot never moves. Without that split, a successful refresh and a no-op
+ * looked exactly the same — which is the bug this pair guards.
+ */
+hostOf = makeHost({
+  fetch: async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({
+      ...payload,
+      asOf: {
+        ...payload.asOf,
+        online: 1763800000000,
+        onlineDate: '2026-11-20',
+        onlineModels: 40,
+        onlineFailed: 0,
+        effective: '2026-11-20',
+        effectiveSource: 'online',
+      },
+    }),
+  }),
+})
+globalThis.fetch = hostOf.fetchImpl
+loadBundle().exports.apply(hostOf.ctx)
+
+const onlinePanel = await mount('main')
+assert.ok(onlinePanel.text.includes('数据时间 2026-11-20（在线 40 个）'), onlinePanel.text.slice(0, 400))
+assert.ok(
+  onlinePanel.text.includes('智力快照 2026-11-16'),
+  'the intelligence index ships with the release and keeps its own date',
+)
+assert.ok(!onlinePanel.text.includes('数据时间 2026-11-16（快照）'), 'the snapshot date is no longer the active one')
+
+/* a refresh that failed on every key must say so instead of keeping the old date */
+hostOf = makeHost({
+  fetch: async () => ({ ok: true, status: 200, json: async () => ({ ...payload, asOf: { ...payload.asOf, onlineFailed: 9 } }) }),
+})
+globalThis.fetch = hostOf.fetchImpl
+loadBundle().exports.apply(hostOf.ctx)
+
+const failedPanel = await mount('main')
+assert.ok(failedPanel.text.includes('数据时间 2026-11-16（快照）'), 'nothing was replaced, so the snapshot date stays')
+assert.ok(failedPanel.text.includes('在线更新失败（9 个）'), 'and the failure is on screen, not silent')
+
+console.log('client harness: 13 scenarios passed')
