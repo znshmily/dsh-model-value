@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "模型性价比",
+    "description": "按单价 × 智力给当前接入的每个模型排名，在输入框菜单里直接推荐并切换。",
+    "detail": "docs/DETAIL.md"
+  }
+}

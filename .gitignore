@@ -1,0 +1,12 @@
+# Nothing here is built: client.js and index.js ship as source, and vendor/
+# carries the Schemastery copy the package needs, so it is committed on purpose.
+node_modules/
+*.tgz
+*.log
+
+# tools/*.py are run by hand; their caches are not part of the package.
+__pycache__/
+*.pyc
+
+.DS_Store
+Thumbs.db

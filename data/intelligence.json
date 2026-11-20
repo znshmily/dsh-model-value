@@ -1,0 +1,1083 @@
+{
+  "asOf": "2026-11-17",
+  "indexName": "Artificial Analysis Intelligence Index",
+  "indexVersion": "v5.0.1",
+  "sourceUrl": "https://artificialanalysis.ai/leaderboards/models",
+  "scores": {
+    "amazon/nova-2-lite": {
+      "index": 13.4,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "amazon/nova-2-omni": {
+      "index": 13.6,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "amazon/nova-2-pro": {
+      "index": 14.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "amazon/nova-micro": {
+      "index": 5.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-4-5-haiku": {
+      "index": 7.4,
+      "url": "https://artificialanalysis.ai/models/claude-4-5-haiku-reasoning",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-4-5-haiku-reasoning": {
+      "index": 7.4,
+      "url": "https://artificialanalysis.ai/models/claude-4-5-haiku-reasoning",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5": {
+      "index": 49.6,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-fable-5-1-high": {
+      "index": 47.2,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-1-low": {
+      "index": 38.7,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-1-medium": {
+      "index": 43.2,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-1-xhigh": {
+      "index": 50,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-2-high": {
+      "index": 61.8,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-2-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-2-low": {
+      "index": 53.9,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-2-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-2-medium": {
+      "index": 56.4,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-2-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5-2-xhigh": {
+      "index": 62.2,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-2-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5.1": {
+      "index": 49.2,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-1",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-fable-5.2": {
+      "index": 64.6,
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-2",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-haiku-5-5-high": {
+      "index": 29.9,
+      "url": "https://artificialanalysis.ai/models/claude-haiku-5-5-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-haiku-5-5-low": {
+      "index": 18.6,
+      "url": "https://artificialanalysis.ai/models/claude-haiku-5-5-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-haiku-5-5-medium": {
+      "index": 24.6,
+      "url": "https://artificialanalysis.ai/models/claude-haiku-5-5-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-haiku-5-5-xhigh": {
+      "index": 34.6,
+      "url": "https://artificialanalysis.ai/models/claude-haiku-5-5-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-haiku-5.5": {
+      "index": 36.5,
+      "url": "https://artificialanalysis.ai/models/claude-haiku-5-5",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-opus-4.5": {
+      "index": 29.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-opus-4.6": {
+      "index": 31.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-opus-4.7": {
+      "index": 40.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-opus-4.8": {
+      "index": 41.8,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-opus-5": {
+      "index": 44.2,
+      "url": "https://artificialanalysis.ai/models/claude-opus-5",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-opus-5-5-high": {
+      "index": 51.8,
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-opus-5-5-low": {
+      "index": 34.8,
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-opus-5-5-medium": {
+      "index": 48.2,
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-opus-5-5-xhigh": {
+      "index": 57.4,
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-opus-5.5": {
+      "index": 59.1,
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-sonnet-4.6": {
+      "index": 30.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-sonnet-5": {
+      "index": 38.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "anthropic/claude-sonnet-5-5-high": {
+      "index": 41.5,
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-sonnet-5-5-low": {
+      "index": 25.6,
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-sonnet-5-5-medium": {
+      "index": 30.8,
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-sonnet-5-5-xhigh": {
+      "index": 49.9,
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "anthropic/claude-sonnet-5.5": {
+      "index": 54.5,
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "apodex/apodex-1-1": {
+      "index": 13.7,
+      "url": "https://artificialanalysis.ai/models/apodex-1-1",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "baidu/ernie-5.0": {
+      "index": 14.3,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "baidu/ernie-5.5-flash-preview": {
+      "index": 37.3,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 46.4% 折算（拟合误差约 ±5）"
+    },
+    "china-mobile/jt-4-1-flash-236b-a21b": {
+      "index": 19,
+      "url": "https://artificialanalysis.ai/models/jt-4-1-flash-236b-a21b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "cohere/command-a": {
+      "index": 7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "cohere/command-a-plus": {
+      "index": 6.2,
+      "url": "https://artificialanalysis.ai/models/command-a-plus",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "cohere/north-mini-code": {
+      "index": 3.4,
+      "url": "https://artificialanalysis.ai/models/north-mini-code",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "deepseek/deepseek-v4-1-flash-1017-high": {
+      "index": 28.6,
+      "url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "deepseek/deepseek-v4-1-flash-1017-non-reasoning": {
+      "index": 18.5,
+      "url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017-non-reasoning",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "deepseek/deepseek-v4-flash": {
+      "index": 28.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 38.6% 折算（拟合误差约 ±5）"
+    },
+    "deepseek/deepseek-v4-pro": {
+      "index": 23.1,
+      "url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "deepseek/deepseek-v4.1-flash": {
+      "index": 32.6,
+      "url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-2.0-flash": {
+      "index": 8.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-2.0-flash-lite": {
+      "index": 7.4,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-2.5-flash": {
+      "index": 15.5,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-2.5-pro": {
+      "index": 16.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-2.5-pro-preview": {
+      "index": 16.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 google/gemini-2.5-pro 的分数（-preview 变体）"
+    },
+    "google/gemini-3-1-flash-lite-preview": {
+      "index": 6.2,
+      "url": "https://artificialanalysis.ai/models/gemini-3-1-flash-lite-preview",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-3-8-flash-low": {
+      "index": 22.5,
+      "url": "https://artificialanalysis.ai/models/gemini-3-8-flash-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-3-8-flash-medium": {
+      "index": 30.1,
+      "url": "https://artificialanalysis.ai/models/gemini-3-8-flash-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-3.1-flash-lite": {
+      "index": 15.6,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-3.1-flash-lite-preview": {
+      "index": 6.2,
+      "url": "https://artificialanalysis.ai/models/gemini-3-1-flash-lite-preview",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-3.1-pro": {
+      "index": 38,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 47% 折算（拟合误差约 ±5）"
+    },
+    "google/gemini-3.1-pro-preview": {
+      "index": 29.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-3.5-flash": {
+      "index": 33.6,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-3.5-flash-lite": {
+      "index": 11.7,
+      "url": "https://artificialanalysis.ai/models/gemini-3-5-flash-lite",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-3.6-flash": {
+      "index": 34,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "google/gemini-3.7-flash": {
+      "index": 29.3,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 39% 折算（拟合误差约 ±5）"
+    },
+    "google/gemini-3.8-flash": {
+      "index": 30.8,
+      "url": "https://artificialanalysis.ai/models/gemini-3-8-flash",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-4-argon": {
+      "index": 50.4,
+      "url": "https://artificialanalysis.ai/models/gemini-4-argon",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-4-carbon": {
+      "index": 60,
+      "url": "https://artificialanalysis.ai/models/gemini-4-carbon",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemini-4-hydrogen": {
+      "index": 53.9,
+      "url": "https://artificialanalysis.ai/models/gemini-4-hydrogen",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemma-4-31b": {
+      "index": 4.4,
+      "url": "https://artificialanalysis.ai/models/gemma-4-31b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "google/gemma-4-e4b": {
+      "index": 4.8,
+      "url": "https://artificialanalysis.ai/models/gemma-4-e4b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "ibm/granite-4-2-3b": {
+      "index": 4.7,
+      "url": "https://artificialanalysis.ai/models/granite-4-2-3b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "ibm/granite-4-2-8b": {
+      "index": 5.1,
+      "url": "https://artificialanalysis.ai/models/granite-4-2-8b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "inclusionai/ling-3.1-flash": {
+      "index": 29.6,
+      "url": "https://artificialanalysis.ai/models/ling-3-1-flash",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "institute-of-foundation-models/k2-horizon-375b-a23b": {
+      "index": 17.8,
+      "url": "https://artificialanalysis.ai/models/k2-horizon-375b-a23b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "lg/k-exaone-2-0": {
+      "index": 7.6,
+      "url": "https://artificialanalysis.ai/models/k-exaone-2-0",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "meta/muse-ember": {
+      "index": 36,
+      "url": "https://artificialanalysis.ai/models/muse-ember",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "meta/muse-glimmer": {
+      "index": 6.3,
+      "url": "https://artificialanalysis.ai/models/muse-glimmer",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "meta/muse-spark-1.1": {
+      "index": 33.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "meta/muse-spark-1.2": {
+      "index": 39.6,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "meta/muse-spark-1.2-contributor": {
+      "index": 39.6,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 meta/muse-spark-1.2 的分数（-contributor 变体）"
+    },
+    "meta/muse-spark-1.3": {
+      "index": 36.6,
+      "url": "https://artificialanalysis.ai/models/muse-spark-1-3",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "meta/muse-spark-1.3-contributor": {
+      "index": 36.6,
+      "url": "https://artificialanalysis.ai/models/muse-spark-1-3",
+      "asOf": "2026-11-17",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 meta/muse-spark-1.3 的分数（-contributor 变体）"
+    },
+    "meta/muse-spark-open": {
+      "index": 24.9,
+      "url": "https://artificialanalysis.ai/models/muse-spark-open",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "meta/muse-wonder": {
+      "index": 43.6,
+      "url": "https://artificialanalysis.ai/models/muse-wonder",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "meta/muse-wonder-full": {
+      "index": 50.1,
+      "url": "https://artificialanalysis.ai/models/muse-wonder-full",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "minimax/minimax-m2.7": {
+      "index": 21,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 29.6% 折算（拟合误差约 ±5）"
+    },
+    "minimax/minimax-m3": {
+      "index": 18.9,
+      "url": "https://artificialanalysis.ai/models/minimax-m3",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "minimax/minimax-m3.1-flash": {
+      "index": 29.1,
+      "url": "https://artificialanalysis.ai/models/minimax-m3-1-flash",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "mistralai/mistral-large-3": {
+      "index": 9.3,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "mistralai/mistral-large-4": {
+      "index": 26.1,
+      "url": "https://artificialanalysis.ai/models/mistral-large-4",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "mistralai/mistral-large-4-0": {
+      "index": 26.1,
+      "url": "https://artificialanalysis.ai/models/mistral-large-4",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "mistralai/mistral-large-4-preview": {
+      "index": 25.3,
+      "url": "https://artificialanalysis.ai/models/mistral-large-4-preview",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "mistralai/mistral-medium-3-5": {
+      "index": 4.6,
+      "url": "https://artificialanalysis.ai/models/mistral-medium-3-5",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "mistralai/mistral-small-4": {
+      "index": 4.3,
+      "url": "https://artificialanalysis.ai/models/mistral-small-4",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "moonshotai/kimi-k2.6": {
+      "index": 27.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 37.5% 折算（拟合误差约 ±5）"
+    },
+    "moonshotai/kimi-k2.7-code": {
+      "index": 25.5,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 35% 折算（拟合误差约 ±5）"
+    },
+    "moonshotai/kimi-k3": {
+      "index": 17.4,
+      "url": "https://artificialanalysis.ai/models/kimi-k3-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "moonshotai/kimi-k3.1-pro": {
+      "index": 46.5,
+      "url": "https://artificialanalysis.ai/models/kimi-k3-1-pro",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "nanbeige/nanbeige4-3-33b": {
+      "index": 20.4,
+      "url": "https://artificialanalysis.ai/models/nanbeige4-3-33b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "nvidia/nemotron-3-5-lightning": {
+      "index": 5.5,
+      "url": "https://artificialanalysis.ai/models/nemotron-3-5-lightning",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "nvidia/nemotron-3-ultra-550b-a55b": {
+      "index": 12,
+      "url": "https://artificialanalysis.ai/models/nemotron-3-ultra-550b-a55b",
+      "asOf": "2026-11-16"
+    },
+    "nvidia/nemotron-3.5-super-vl": {
+      "index": 13.6,
+      "url": "https://artificialanalysis.ai/models/nemotron-3-5-super-vl",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "nvidia/nvidia-nemotron-3-nano-4b": {
+      "index": 1.8,
+      "url": "https://artificialanalysis.ai/models/nvidia-nemotron-3-nano-4b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "nvidia/nvidia-nemotron-3-ultra-550b-a55b": {
+      "index": 11.8,
+      "url": "https://artificialanalysis.ai/models/nvidia-nemotron-3-ultra-550b-a55b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-4.1": {
+      "index": 12.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-4.1-mini": {
+      "index": 10.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-4.1-nano": {
+      "index": 7.8,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-4o": {
+      "index": 9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-4o-mini": {
+      "index": 6.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-5.3-codex": {
+      "index": 32.5,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-5.4": {
+      "index": 39,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-5.4-mini": {
+      "index": 24.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-5.4-nano": {
+      "index": 20.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-5.5": {
+      "index": 38.4,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "openai/gpt-5.5-pro": {
+      "index": 51.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 57.2% 折算（拟合误差约 ±5）"
+    },
+    "openai/gpt-5.6-luna": {
+      "index": 23.8,
+      "url": "https://artificialanalysis.ai/models/gpt-5-6-luna",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-5.6-sol": {
+      "index": 41,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 49.5% 折算（拟合误差约 ±5）"
+    },
+    "openai/gpt-5.6-terra": {
+      "index": 32.3,
+      "url": "https://artificialanalysis.ai/models/gpt-5-6-terra",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-sol-high": {
+      "index": 50.3,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-sol-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-sol-low": {
+      "index": 34.8,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-sol-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-sol-medium": {
+      "index": 46.3,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-sol-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-sol-xhigh": {
+      "index": 52.5,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-sol-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-terra-high": {
+      "index": 42.4,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-terra-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-terra-low": {
+      "index": 29.4,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-terra-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-terra-medium": {
+      "index": 38.2,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-terra-medium",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-terra-non-reasoning": {
+      "index": 30.5,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-terra-non-reasoning",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-1-terra-xhigh": {
+      "index": 45.3,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-terra-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-astra": {
+      "index": 56.9,
+      "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-luna": {
+      "index": 27.9,
+      "url": "https://artificialanalysis.ai/models/gpt-6-luna",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6-sol": {
+      "index": 44.2,
+      "url": "https://artificialanalysis.ai/models/gpt-6-sol",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6.1-sol": {
+      "index": 54.6,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-sol",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-6.1-terra": {
+      "index": 51.3,
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-terra",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "openai/gpt-oss-120b": {
+      "index": 3.8,
+      "url": "https://artificialanalysis.ai/models/gpt-oss-120b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "qwen/qwen3-8-27b": {
+      "index": 20.1,
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "qwen/qwen3-8-flash-next": {
+      "index": 28.6,
+      "url": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "qwen/qwen3.7-max": {
+      "index": 30.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 40.5% 折算（拟合误差约 ±5）"
+    },
+    "qwen/qwen3.7-plus": {
+      "index": 25.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "qwen/qwen3.8-flash": {
+      "index": 29,
+      "url": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
+      "asOf": "2026-11-16",
+      "estimated": true,
+      "note": "AA 把该模型列在 “Qwen3.8-Flash-Next” 这一 listing 下（价格同为 $0.15/$0.47），29 分取自该 listing，按估值展示。"
+    },
+    "qwen/qwen3.8-max": {
+      "index": 45.4,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "qwen/qwen3.8-max-0902": {
+      "index": 33.7,
+      "url": "https://artificialanalysis.ai/models/qwen3-8-max",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "qwen/qwen3.8-max-prime": {
+      "index": 45.4,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 qwen/qwen3.8-max 的分数（-prime 变体）"
+    },
+    "qwen/qwen4-max": {
+      "index": 42.9,
+      "url": "https://artificialanalysis.ai/models/qwen4-max",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "reflection/reflection-beam": {
+      "index": 17.7,
+      "url": "https://artificialanalysis.ai/models/reflection-beam",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "sapiens-ai/agnes-2-5-pro-theta": {
+      "index": 24,
+      "url": "https://artificialanalysis.ai/models/agnes-2-5-pro-theta",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "sk-telecom/a-x-k2": {
+      "index": 9,
+      "url": "https://artificialanalysis.ai/models/a-x-k2",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "spacexai/grok-4-6-xhigh": {
+      "index": 31,
+      "url": "https://artificialanalysis.ai/models/grok-4-6-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "spacexai/grok-4-7-high": {
+      "index": 35.2,
+      "url": "https://artificialanalysis.ai/models/grok-4-7-high",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "spacexai/grok-4-7-low": {
+      "index": 31.1,
+      "url": "https://artificialanalysis.ai/models/grok-4-7-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "stepfun/step-5": {
+      "index": 28.5,
+      "url": "https://artificialanalysis.ai/models/step-5",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "stepfun/step-5-preview": {
+      "index": 28.5,
+      "url": "https://artificialanalysis.ai/models/step-5",
+      "asOf": "2026-11-17",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 stepfun/step-5 的分数（-preview 变体）"
+    },
+    "tencent/hy4-preview": {
+      "index": 35,
+      "url": "https://artificialanalysis.ai/models/tencent-hy4",
+      "asOf": "2026-11-16"
+    },
+    "tencent/tencent-hy4": {
+      "index": 34.6,
+      "url": "https://artificialanalysis.ai/models/tencent-hy4",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "thinkingmachines/inkling": {
+      "index": 12.5,
+      "url": "https://artificialanalysis.ai/models/inkling",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "thinkingmachines/inkling-2-small": {
+      "index": 30.6,
+      "url": "https://artificialanalysis.ai/models/inkling-2-small",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "thinkingmachines/inkling-small": {
+      "index": 12.9,
+      "url": "https://artificialanalysis.ai/models/inkling-small",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "upstage/solar-pro-2": {
+      "index": 9.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "upstage/solar-pro-3": {
+      "index": 7.8,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "upstage/solar-pro-4": {
+      "index": 14.2,
+      "url": "https://artificialanalysis.ai/models/solar-pro4",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "x-ai/grok-4.3": {
+      "index": 24.9,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "x-ai/grok-4.5": {
+      "index": 33.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 42.7% 折算（拟合误差约 ±5）"
+    },
+    "x-ai/grok-4.6": {
+      "index": 31,
+      "url": "https://artificialanalysis.ai/models/grok-4-6-xhigh",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "x-ai/grok-4.7": {
+      "index": 35.5,
+      "url": "https://artificialanalysis.ai/models/grok-4-7",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "xiaomi/mimo-v2-6-flash": {
+      "index": 26.7,
+      "url": "https://artificialanalysis.ai/models/mimo-v2-6-flash",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "xiaomi/mimo-v2.6-pro": {
+      "index": 29.9,
+      "url": "https://artificialanalysis.ai/models/mimo-v2-6-pro",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "xiaomi/mimo-v2.6-pro-ultraspeed": {
+      "index": 29.9,
+      "url": "https://artificialanalysis.ai/models/mimo-v2-6-pro",
+      "asOf": "2026-11-17",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 xiaomi/mimo-v2.6-pro 的分数（-ultraspeed 变体）"
+    },
+    "z-ai/glm-4.5-air": {
+      "index": 11.1,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "z-ai/glm-4.7": {
+      "index": 22.2,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-09-24",
+      "note": "aiapiindex.com 汇总的 Artificial Analysis Intelligence Index（CC BY 4.0）"
+    },
+    "z-ai/glm-5": {
+      "index": 20.7,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 29.3% 折算（拟合误差约 ±5）"
+    },
+    "z-ai/glm-5-3-low": {
+      "index": 23.1,
+      "url": "https://artificialanalysis.ai/models/glm-5-3-low",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "z-ai/glm-5.2": {
+      "index": 31.5,
+      "url": "https://aiapiindex.com/prices.json",
+      "asOf": "2026-11-18",
+      "estimated": true,
+      "note": "Artificial Analysis 未收录；按 HLE 41.1% 折算（拟合误差约 ±5）"
+    },
+    "z-ai/glm-5.3": {
+      "index": 31.7,
+      "url": "https://artificialanalysis.ai/models/glm-5-3",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "z-ai/glm-5.3-flash": {
+      "index": 27.8,
+      "url": "https://artificialanalysis.ai/models/glm-5-3-flash",
+      "asOf": "2026-11-17",
+      "note": "Artificial Analysis Intelligence Index v5（AA 页面镜像）"
+    },
+    "z-ai/glm-5.3-prime": {
+      "index": 31.7,
+      "url": "https://artificialanalysis.ai/models/glm-5-3",
+      "asOf": "2026-11-17",
+      "estimated": true,
+      "note": "未单独发布分数，沿用 z-ai/glm-5.3 的分数（-prime 变体）"
+    }
+  }
+}

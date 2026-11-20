@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Model value",
+    "description": "Ranks every mounted model by price × intelligence, and recommends one inside the composer model menu.",
+    "detail": "docs/DETAIL.md"
+  }
+}
