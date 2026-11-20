@@ -1,42 +1,100 @@
 # dsh-model-value
 
-当前接入模型的**单价、智力、性价比**排行，长在选模型的地方：模型菜单顶部给出推荐行（末行可打开完整排行面板），另外给 Agent 一个 `model_value_rank` 工具。
+[![version](https://img.shields.io/github/package-json/v/znshmily/dsh-model-value)](https://github.com/znshmily/dsh-model-value)
+[![license](https://img.shields.io/github/license/znshmily/dsh-model-value)](./LICENSE)
+[![stars](https://img.shields.io/github/stars/znshmily/dsh-model-value)](https://github.com/znshmily/dsh-model-value/stargazers)
+[![dsh plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-6b7cff)](https://github.com/deepseek-ai/deepseek-harness)
 
-- 价格与智力分随插件附带快照（USD / 1M tokens，Artificial Analysis Intelligence Index），**509 条价格键、176 个模型有分**（155 个 AA 实测 + 21 个按 HLE 折算，界面带 `≈`）。数据由 `tools/sync-sources.mjs` 从 [aiapiindex.com](https://aiapiindex.com) 公开镜像同步（AA 榜单 + OpenRouter 全量报价，CC BY 4.0），`tools/fill-gaps.mjs` 补齐镜像还没跟上的新模型。可在设置里手填覆盖，也能定时从 OpenRouter 拉最新报价。
-- 排名算法在 Host 侧完成，客户端只渲染；同一个接口 `/dsh-model-value/api/rank` 同时服务面板与工具。
-- 排行面板**共用一个滚动容器、分两块**：① **全部模型**——已接入的渠道实例与未接入的市面模型放在同一张表里、用同一套 `allRank` 名次（列头「全部排名」），默认「范围 = 全部」，标题条上的三个胶囊可以只看「已接入」或只看「未接入」（未接入的行没有勾选框，带「未接入」小胶囊；范围选「未接入」时整个列表都是未接入的，胶囊自动隐藏）；② **按提供方分组排名**——始终只列已接入的渠道，用组内名次（列头「组内排名」）。**两种名次都常驻显示**：排名列一个、模型名后面的胶囊一个（「已接入第 N」/「全部第 N」），不用悬停也能对照。每行的模型格是两行：第一行名字 + 胶囊，第二行灰字 **`提供方/模型ID`**（Comate 那种 `proxy_<hash>` 也照原样写出来，不再藏在 tooltip 里），可以选中复制。面板支持**按名搜索（只高亮不过滤，右侧显示匹配行数）**，每行还有一个**复制模型名**的按钮。两块各有吸顶表头，分组头也吸顶；只画同时有价格和智力分的模型，免费/缺分/缺价的只在表头统计个数。未接入的模型接入后下次刷新自动移到分组里。
-- 排行面板每行可**按渠道勾选**模型（同一模型多接入各算一行，勾一个不连带其他渠道）；勾选的模型全部追加在模型菜单 Top 3 之后（带 ★，列表高度固定约 4 行，超出在块内滚动并提示「共 N 行」），未勾选时菜单就是 Top 3 推荐；清单持久化在插件 host 端 `state.json`，全局生效。菜单每一行只有**名次 + 完整模型名 + 提供方**（`commandcode`，同一模型多渠道时是 `comate ×2`）——名字换行显示不截断，整个菜单没有 tooltip；价格与智力在排行面板里看。
-- 只使用 `--dsw-alias-*` 主题令牌，不引入任何 Harness 客户端包。明暗主题都做了适配：强调色只用来**调色**（`color-mix` 半透明着色），从不做"实心品牌色 + 固定白字"的底色；勾选框自己画（原生 checkbox 在深色页面会画成白方块），所以任何主题下都不会出现白底白字或白框。
+**English** · [中文](./README.zh.md)
 
-完整说明见 [docs/DETAIL.md](docs/DETAIL.md)。
+Know what a model costs before you pick it. This plugin ranks every model your DeepSeek Harness host already has by **unit price**, **intelligence**, and **value for the money** — and puts the answer where you actually choose a model: the composer's model menu.
 
-## 开发
+| Composer model menu | Ranking panel |
+| --- | --- |
+| <img src="assets/screenshot-menu.png" width="380" alt="Model menu with the best-value picks, each row showing the model name and its provider"> | <img src="docs/preview.svg" width="560" alt="Ranking panel: all models in one table, then the same models grouped by provider"> |
 
-```bash
-node test/units.mjs      # 键匹配、加权单价、排序分组、组内排名、市面块、payload、pins、工具与切换接口
-node test/client.mjs     # 无头渲染真实的 client bundle（12 个场景）
+## What it does
+
+- **Best-value picks in the model menu.** Three rows above the list, one per distinct model, picked by value. Pinned models follow with a ★. One click switches the session.
+- **A ranking panel with two questions on one page.** "Which model is worth it overall?" and "Which model is worth it on *this* provider?" — the same table, two numberings.
+- **Models you have not connected yet.** Priced and scored market models are listed alongside, ranked on the same scale, so you can see what a different provider would buy you.
+- **An agent tool.** `model_value_rank` returns the same data to the model itself, so it can ask "what is cheap and good right now?" before choosing.
+
+## Install
+
+```sh
+dsh plugin add dsh-model-value                     # npm
+dsh plugin add github:znshmily/dsh-model-value     # GitHub source
+```
+
+Or from the **Plugins** page of the DSH Desktop app / the Discover tab of the plugin market. A local checkout installs with the plugin manager (`install_bundle <path>`) — never edit the profile's `package.json` or `cordis.patch.yml` by hand.
+
+Reload the session (or refresh the page) afterwards: the model menu gains a "★ Top 3 by value" block whose last row opens the full ranking.
+
+## Using it
+
+**The menu** answers one question — *which channel's which model do I switch to*. Each row is a rank, the full model name (it wraps rather than truncates), and the provider that would serve it. Price and intelligence live in the panel; nothing is hidden behind a tooltip.
+
+**The panel** has two blocks in one scroll container:
+
+- **All models (N)** — connected channels and market models in a single table with one numbering. The scope chips narrow it to connected or not-connected; the title and count follow.
+- **By provider** — the connected channels again, each with its own 1..N ranking, because "best on this provider" and "best overall" are different questions.
+
+Both numberings stay visible: the rank column shows the one the table is sorted by, and a pill next to the name spells out the other. Headers and group titles stick while you scroll. The model cell is two lines — the name with its pills, then the raw `provider/model` id, which you can select and copy (that is where a provider's opaque `proxy_<hash>` shows up). A **name search** highlights matches without filtering anything, so ranks, order and checkboxes stay put. Every text is selectable, and each row has a copy button for the model name.
+
+**Pinning** a row (the checkbox column) adds that channel's model to the menu after the Top 3. Pins are per channel instance — the same underlying model on two providers is two rows, and ticking one does not tick the other. The list is global and persists in the Host's `state.json`.
+
+## How the ranking is computed
+
+Everything runs on the Host; the client only renders. Both the panel and the tool read one endpoint, `/dsh-model-value/api/rank`.
+
+```
+effectiveInput = input × (1 − cacheHitShare) + cacheRead × cacheHitShare
+blended        = effectiveInput × wIn + output × wOut        (weights normalised, default 3:1)
+value          = intelligence / blended                      (index points per $/M tokens)
+```
+
+- `cacheRead` only applies to models with a published cache price; the rest pay full input. `cacheHitShare` defaults to 0.5.
+- Weights default to 3:1 input:output — coding sessions read far more than they write. Both zero falls back to 1:1.
+- **Free, unpriced and unscored models are not ranked.** A free model has no finite value, and a missing score is not a low score; they are counted in the header line instead of being sorted next to real numbers.
+- `≈` on a price or a score means it was **derived** (inherited from the base serving tier, or from the parent model) rather than published. Hovering the badge says where it came from.
+- The value bar is normalised to the median of its own table, so `×4.96` reads as "about five times the median value **here**" — the two blocks have separate medians and are not comparable to each other.
+
+## Configuration
+
+Settings → Plugins → Plugins configuration → **Model value** (`weightInput`, `weightOutput`, `cacheHitShare`, `currency`, `fx`, `includeFree`, `onlineRefresh`, `overridesJson`).
+
+| Field | Default | What it does |
+| --- | --- | --- |
+| `weightInput` / `weightOutput` | `3` / `1` | Input:output weights of the blended price. |
+| `cacheHitShare` | `0.5` | Share of input tokens billed at the cache-read price. |
+| `currency` / `fx` | `USD` / `7.2` | Display currency; the table itself is stored in USD per million tokens. |
+| `includeFree` | `true` | Show zero-price replicas as their own group. |
+| `onlineRefresh` | `true` | Pull live prices from OpenRouter; failures fall back to the bundled snapshot silently. |
+| `overridesJson` | `""` | Hand overrides, e.g. `{"models":{"vendor/model":{"input":0.3,"output":1.2}},"scores":{"vendor/model":48}}`. |
+
+## Data
+
+Bundled snapshot: **509 price entries** and **176 intelligence scores** (155 measured, 21 derived) from the **Artificial Analysis Intelligence Index v5.0.1**, prices as of **2026-11-17**.
+
+- Prices: the OpenRouter catalogue; intelligence: Artificial Analysis, via the public [aiapiindex.com](https://aiapiindex.com) mirror (CC BY 4.0). `tools/sync-sources.mjs` re-syncs, `tools/fill-gaps.mjs` covers models the mirror has not caught up with.
+- `tools/seed-market.mjs` regenerates the market-model seed used by the panel.
+- The only outbound request the plugin makes is the optional OpenRouter price refresh. There is no telemetry, and no data leaves your machine otherwise.
+
+Snapshot data can be wrong, and providers change prices without notice — treat the numbers as a shopping aid, not a bill.
+
+## Development
+
+```sh
+node test/units.mjs      # key matching, blended price, sorting, groups, payload, pins, tool, select route
+node test/client.mjs     # headless render of the real client bundle (12 scenarios)
 node --check index.js && node --check client.js
 ```
 
-数据文件在 `data/prices.json`、`data/intelligence.json`；`tools/seed-market.mjs` 是补市面模型数据的一次性生成脚本（改完跑一次，两个 JSON 会按 key 排序重写）；`tools/preview.py` 用和样式表相同的几何画出 `docs/preview.svg`，`tools/preview_menu.py` 画出输入框菜单预览——两者都接受一个 PNG 输出路径参数；`assets/screenshot-*.png` 由这两个脚本生成，`screenshots.json` 把它们声明给插件市场；`tools/make_icon.py` 按 `icon.svg` 的同一份几何画出市场卡片要的位图 `assets/icon-180.png`（市场只收 GitHub 托管的 png/jpg/webp，不收 svg）；`vendor/` 里是随包携带的 Schemastery（裸导入 `@deepseek-ai/schemastery` 在 profile 外无法解析）。
+The panel and menu previews are drawn from the same geometry the stylesheet declares, so documentation cannot drift from the UI: `tools/preview.py` → `docs/preview.svg`, `tools/preview_menu.py` → the menu image, `tools/make_icon.py` → the storefront icon (the markets take raster images, not SVG). `screenshots.json` declares the images to the plugin market. `vendor/` carries the Schemastery build, because a bare import of `@deepseek-ai/schemastery` does not resolve from a plugin linked in from outside the profile.
 
-## 安装
+Full notes, including the layout and theme invariants the tests guard: [docs/DETAIL.md](./docs/DETAIL.md).
 
-从 marketplace / 命令行装（推荐）：
+## License
 
-```sh
-dsh plugin add dsh-model-value                                      # npm 包
-dsh plugin add github:znshmily/dsh-model-value                      # GitHub 源
-```
-
-在 DSH 里用插件管理器装本地目录（开发时用；不要手改 profile 的 `package.json` / `cordis.patch.yml`）：
-
-```
-plugin_manager install_bundle <path-to-this-directory>
-```
-
-安装后重启会话/刷新页面：模型菜单（`/model`）里出现"★ 性价比 Top 3"，最后一行"查看完整排行"进入明细表。
-
-## 许可证
-
-MIT © [znshmily](https://github.com/znshmily)。见 [LICENSE](./LICENSE)。
+MIT © [znshmily](https://github.com/znshmily). See [LICENSE](./LICENSE).
