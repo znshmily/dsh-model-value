@@ -39,12 +39,43 @@ const dataOf = (prices, scores, online = { at: 0, errors: [] }) => ({
     index: { name: 'AA', version: 'v5.0.1', url: 'https://example.test' },
     pricesAsOf: '2026-11-16',
     scoresAsOf: '2026-11-16',
-    /* The real store derives these from `at`; the fixtures that do not care about
-       freshness get the zero state, which is what an unrefreshed host reports. */
-    online: { date: null, priced: 0, failed: 0, ...online },
+    /* The real store derives these from `at`/`scoreAt`; fixtures that do not care
+       about freshness get the zero state, which is what an unrefreshed host says. */
+    online: {
+      date: null,
+      priced: 0,
+      failed: 0,
+      scoreDate: null,
+      scored: 0,
+      scoreFailed: 0,
+      scoreErrors: [],
+      ...online,
+    },
     overrides: { error: '', models: 0, scores: 0 },
   }),
 })
+
+/** A fetch stub that answers the manifest, the score file, and OpenRouter pricing. */
+const jsonResponse = (value) => ({ ok: true, status: 200, json: async () => value })
+const AA_MANIFEST = { sources: [{ id: 'artificialanalysis', file: 'aa-scores.json' }] }
+const AA_BODY = {
+  fetchedAt: '2026-11-20T09:00:00.000Z',
+  records: [
+    {
+      metric: 'artificial_analysis_intelligence_index',
+      score: 44,
+      model: 'Claude Haiku 5.5 (Max)',
+      url: 'https://artificialanalysis.ai/models/anthropic/claude-haiku-5.5',
+    },
+    /* A model the table does not carry must never appear because of a refresh. */
+    {
+      metric: 'artificial_analysis_intelligence_index',
+      score: 12,
+      model: 'Unlisted Model',
+      url: 'https://artificialanalysis.ai/models/vendor/unlisted-model',
+    },
+  ],
+}
 
 test('matches provider-specific ids onto canonical keys', () => {
   const index = createKeyIndex(['deepseek/deepseek-v4.1-flash', 'tencent/hy3'])
@@ -488,20 +519,22 @@ test('refresh only asks OpenRouter for keys it actually prices', async () => {
   } finally {
     globalThis.fetch = realFetch
   }
-  assert.ok(requested.length > 20, 'the online-priced keys are still refreshed')
+  /* The refresh now also reads the score feed; this test is about the price half. */
+  const priceRequests = requested.filter((url) => url.includes('openrouter.ai/api/v1/models/'))
+  assert.ok(priceRequests.length > 20, 'the online-priced keys are still refreshed')
   // Prices that came from aiapiindex have no OpenRouter page; asking 404s every time.
   assert.equal(
-    requested.some((url) => url.includes('/baidu/ernie-5.0/')),
+    priceRequests.some((url) => url.includes('/baidu/ernie-5.0/')),
     false,
     'a key sourced from another index is not requested',
   )
   assert.equal(
-    requested.some((url) => url.includes('/anthropic/claude-haiku-5.5/')),
+    priceRequests.some((url) => url.includes('/anthropic/claude-haiku-5.5/')),
     true,
     'an OpenRouter-sourced key is requested',
   )
   const errors = store.status().onlineErrors
-  assert.equal(errors.length, requested.length, 'every failed request is still reported')
+  assert.equal(errors.length, priceRequests.length, 'every failed request is still reported')
   /* The timestamp is the age of the prices in use, not of the last attempt: a run
      where nothing was priced leaves it at zero, so the panel keeps saying
      "snapshot" instead of claiming today's date for yesterday's numbers. */
@@ -521,11 +554,12 @@ test('a forced refresh lands in the same payload, with its own date', async () =
   assert.equal(before.asOf.effectiveSource, 'snapshot')
   assert.equal(before.asOf.effective, before.asOf.prices, 'the snapshot date is the one in use')
 
-  globalThis.fetch = async () => ({
-    ok: true,
-    status: 200,
-    json: async () => ({ data: { endpoints: [{ pricing: { prompt: 0.000001, completion: 0.000002 } }] } }),
-  })
+  globalThis.fetch = async (url) => {
+    const target = String(url)
+    if (target.includes('/public-data/manifest.json')) return jsonResponse(AA_MANIFEST)
+    if (target.includes('/public-data/aa-scores.json')) return jsonResponse(AA_BODY)
+    return jsonResponse({ data: { endpoints: [{ pricing: { prompt: 0.000001, completion: 0.000002 } }] } })
+  }
   try {
     await store.ensureFresh(true)
     const after = await buildPayload({ catalog, data: store, config })
@@ -535,6 +569,13 @@ test('a forced refresh lands in the same payload, with its own date', async () =
     assert.ok(after.asOf.onlineModels > 20, 'the keys it priced are counted')
     assert.equal(after.asOf.onlineFailed, 0)
     assert.equal(after.asOf.prices, before.asOf.prices, 'the snapshot date itself never moves')
+    /* the scores refreshed from their own feed, in the same round trip */
+    assert.equal(after.asOf.scoresSource, 'online', 'the score side refreshed too')
+    assert.equal(after.asOf.scoresEffective, '2026-11-20', 'dated by the feed, not by the clock')
+    assert.equal(after.asOf.onlineScores, 1, 'only the model the table already carries')
+    assert.equal(after.asOf.onlineScoresFailed, 0)
+    assert.equal(after.rows[0].iq, 44, 'the new score reached the row')
+    assert.equal(after.rows[0].iqEstimated, false)
     /* the prices in the very same response are the refreshed ones */
     assert.equal(after.rows[0].price.input, 1)
     assert.equal(after.rows[0].price.output, 2)
@@ -563,7 +604,16 @@ test('a refresh that priced nothing keeps the snapshot date and reports the fail
   assert.equal(payload.asOf.effectiveSource, 'snapshot')
   assert.equal(payload.asOf.onlineModels, 0)
   assert.ok(payload.asOf.onlineFailed > 20, 'every failed key is counted')
+  /* the score feed failed too, and says so without touching its own date */
+  assert.equal(payload.asOf.scoresSource, 'snapshot')
+  assert.equal(payload.asOf.scoresEffective, payload.asOf.scores)
+  assert.equal(payload.asOf.onlineScores, 0)
+  assert.ok(payload.asOf.onlineScoresFailed > 0, 'the score failure is counted as well')
   assert.ok(payload.warnings.some((line) => line.includes('刷新失败')), payload.warnings.join('\n'))
+  assert.ok(
+    payload.warnings.some((line) => line.includes('在线智力分刷新失败')),
+    payload.warnings.join('\n'),
+  )
 })
 
 test('free replicas are billed at zero and keep their intelligence score', async () => {

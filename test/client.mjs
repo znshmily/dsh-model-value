@@ -164,6 +164,10 @@ const payload = {
     onlineFailed: 0,
     effective: '2026-11-16',
     effectiveSource: 'snapshot',
+    scoresEffective: '2026-11-16',
+    scoresSource: 'snapshot',
+    onlineScores: 0,
+    onlineScoresFailed: 0,
   },
   index: { name: 'Artificial Analysis', version: 'v5.0.1', url: 'https://artificialanalysis.ai/leaderboards/models' },
   currency: { code: 'USD', symbol: '$', rate: 1 },
@@ -1129,6 +1133,58 @@ assert.ok(
   'the intelligence index ships with the release and keeps its own date',
 )
 assert.ok(!onlinePanel.text.includes('数据时间 2026-11-16（快照）'), 'the snapshot date is no longer the active one')
+
+/* the score feed refreshed on its own: it announces its own date and count */
+hostOf = makeHost({
+  fetch: async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({
+      ...payload,
+      asOf: {
+        ...payload.asOf,
+        scoresEffective: '2026-11-20',
+        scoresSource: 'online',
+        onlineScores: 108,
+      },
+    }),
+  }),
+})
+globalThis.fetch = hostOf.fetchImpl
+loadBundle().exports.apply(hostOf.ctx)
+
+const scoredPanel = await mount('main')
+assert.ok(scoredPanel.text.includes('智力 2026-11-20（在线 108 个）'), scoredPanel.text.slice(0, 400))
+assert.ok(!scoredPanel.text.includes('智力快照'), 'the snapshot wording is gone once the feed answered')
+
+/* both feeds moved in the same click: one date is enough, so no extra line */
+hostOf = makeHost({
+  fetch: async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({
+      ...payload,
+      asOf: {
+        ...payload.asOf,
+        online: 1763800000000,
+        onlineDate: '2026-11-20',
+        onlineModels: 40,
+        effective: '2026-11-20',
+        effectiveSource: 'online',
+        scoresEffective: '2026-11-20',
+        scoresSource: 'online',
+        onlineScores: 108,
+      },
+    }),
+  }),
+})
+globalThis.fetch = hostOf.fetchImpl
+loadBundle().exports.apply(hostOf.ctx)
+
+const togetherPanel = await mount('main')
+assert.ok(togetherPanel.text.includes('数据时间 2026-11-20（在线 40 个）'))
+assert.ok(!togetherPanel.text.includes('智力快照'), 'one date when both feeds moved together')
+assert.ok(!togetherPanel.text.includes('智力 2026-11-20'), 'and no duplicate line for the same date')
 
 /* a refresh that failed on every key must say so instead of keeping the old date */
 hostOf = makeHost({

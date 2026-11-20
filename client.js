@@ -72,6 +72,7 @@ window.__ModuleLoader__.load({
         'meta.asOfPartial': '{n} 个未更新',
         'meta.asOfFailed': '在线更新失败（{n} 个）',
         'meta.scoreAsOf': '智力快照 {date}',
+        'meta.scoreOnline': '智力 {date}（在线 {n} 个）',
         'meta.sources': '数据来源',
         'meta.count': '{n} 个模型',
         'meta.weights': '权重 {w}',
@@ -146,6 +147,7 @@ window.__ModuleLoader__.load({
         'meta.asOfPartial': '{n} not updated',
         'meta.asOfFailed': 'online refresh failed ({n})',
         'meta.scoreAsOf': 'scores as of {date}',
+        'meta.scoreOnline': 'scores as of {date} (online, {n})',
         'meta.sources': 'Sources',
         'meta.count': '{n} models',
         'meta.weights': 'mix {w}',
@@ -808,10 +810,17 @@ window.__ModuleLoader__.load({
         const snapshot = t('meta.asOfSnapshot', { date })
         return failed > 0 ? `${snapshot} · ${t('meta.asOfFailed', { n: failed })}` : snapshot
       })()
-      const scoreAsOfText =
-        asOf !== null && asOf.scores && asOf.scores !== asOf.effective
-          ? t('meta.scoreAsOf', { date: formatDate(asOf.scores) })
-          : ''
+      /* The score side refreshes too, from its own feed, so it announces its own
+         source. Only shown when it differs from the price date: two dates that
+         move together are one fact, not two. */
+      const scoreDate = asOf === null ? null : asOf.scoresEffective ?? asOf.scores
+      let scoreAsOfText = ''
+      if (scoreDate && asOf !== null && scoreDate !== asOf.effective) {
+        scoreAsOfText =
+          asOf.scoresSource === 'online'
+            ? t('meta.scoreOnline', { date: formatDate(scoreDate), n: num(asOf.onlineScores) ?? 0 })
+            : t('meta.scoreAsOf', { date: formatDate(scoreDate) })
+      }
 
       /**
        * The merged table: connected channels and market models in one list with
