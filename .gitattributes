@@ -1,0 +1,6 @@
+# The plugin ships as source; keep every clone byte-identical to what the tests
+# read. Without this, a Windows checkout rewrites LF to CRLF on the next touch
+# and the diff churns on files nobody edited.
+* text=auto eol=lf
+*.png binary
+*.svg text
