@@ -4,16 +4,34 @@
  */
 
 import assert from 'node:assert/strict'
+import { mkdtempSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { createKeyIndex, resolveKey, resolveKeyWithVariant, resolveByLabel, variantOf, baseModelId, normalizeModelName } from '../lib/keys.js'
 import { blendedPrice, resolveWeights, scoreRows, valueOf, buildProviderGroups } from '../lib/rank.js'
 import { buildMarket, displayName } from '../lib/market.js'
 import { buildPayload, parseQuery } from '../lib/payload.js'
 import { pickOpenRouterPrice, parseOverrides, createDataStore } from '../lib/data.js'
+import { fresherThanSeed } from '../lib/price-cache.js'
 import { liveConfig } from '../lib/config.js'
 import { createSelectHandler } from '../lib/select.js'
 import { createPinsHandler } from '../lib/pins-route.js'
 import { normalizePins, MAX_PINS } from '../lib/pins.js'
 import { jsonSafe } from '../lib/tool.js'
+
+/**
+ * Nothing in this suite may touch the real `~/.dsh`: the data store persists its
+ * online cache and the pin store writes `state.json`, so an unredirected run
+ * would seed the user's profile with fixture prices. Every path below resolves
+ * `DSH_HOME` at call time, so setting it here is enough.
+ */
+const TEST_HOME = mkdtempSync(join(tmpdir(), 'dsh-model-value-test-'))
+process.env.DSH_HOME = TEST_HOME
+
+/** A brand-new plugin data dir, for a test that cares about what is on disk. */
+const freshHome = () => {
+  process.env.DSH_HOME = mkdtempSync(join(tmpdir(), 'dsh-model-value-test-'))
+}
 
 const tests = []
 const test = (name, fn) => tests.push({ name, fn })
@@ -594,7 +612,53 @@ test('a forced refresh lands in the same payload, with its own date', async () =
   }
 })
 
+test('a refresh survives a restart, because it is written to the plugin data dir', async () => {
+  freshHome()
+  const config = configOf({ onlineRefresh: true })
+  const store = createDataStore({ logger: { info() {}, warn() {} } }, () => config)
+  const catalog = catalogOf([
+    { id: 'commandcode', name: 'Command Code', models: [{ id: 'anthropic/claude-haiku-5.5', name: 'Claude Haiku 5.5' }] },
+  ])
+  const realFetch = globalThis.fetch
+  globalThis.fetch = async (url) => {
+    const target = String(url)
+    if (target.includes('/public-data/manifest.json')) return jsonResponse(AA_MANIFEST)
+    if (target.includes('/public-data/aa-scores.json')) return jsonResponse(AA_BODY)
+    return jsonResponse({ data: { endpoints: [{ pricing: { prompt: 0.000003, completion: 0.000004 } }] } })
+  }
+  try {
+    await store.ensureFresh(true)
+    /* persist() is fire-and-forget: give the atomic write a tick to land. */
+    await new Promise((resolve) => setTimeout(resolve, 50))
+  } finally {
+    globalThis.fetch = realFetch
+  }
+
+  /* A brand-new store is what a Host restart looks like to this module. */
+  const reopened = createDataStore({ logger: { info() {}, warn() {} } }, () => config)
+  const payload = await buildPayload({ catalog, data: reopened, config })
+  assert.equal(payload.asOf.effectiveSource, 'online', 'the refreshed prices came back from disk')
+  assert.equal(payload.asOf.scoresSource, 'online', 'and so did the refreshed scores')
+  assert.equal(payload.asOf.onlineModels, store.view().online.priced, 'the whole price layer was kept')
+  assert.equal(payload.rows[0].price.input, 3, 'with the refreshed numbers, not the snapshot ones')
+  assert.equal(payload.rows[0].iq, 44)
+})
+
+test('a cached entry never wins over a newer bundled snapshot', () => {
+  const seed = { 'a/one': { input: 1, output: 1, asOf: '2026-11-20' }, 'b/two': { input: 2, output: 2, asOf: '2026-11-01' } }
+  const cached = {
+    'a/one': { input: 9, output: 9, asOf: '2026-11-10' },
+    'b/two': { input: 8, output: 8, asOf: '2026-11-15' },
+    'c/three': { input: 7, output: 7, asOf: '2026-11-16' },
+  }
+  const merged = fresherThanSeed(cached, seed)
+  assert.equal('a/one' in merged, false, 'the upgrade shipped something newer')
+  assert.equal(merged['b/two'].input, 8, 'and the cache still wins where it is newer')
+  assert.equal(merged['c/three'].input, 7, 'a key the snapshot never had is kept')
+})
+
 test('a refresh that priced nothing keeps the snapshot date and reports the failure', async () => {
+  freshHome()
   const config = configOf({ onlineRefresh: true })
   const store = createDataStore({ logger: { info() {}, warn() {} } }, () => config)
   const catalog = catalogOf([
