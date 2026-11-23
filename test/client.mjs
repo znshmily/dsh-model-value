@@ -1197,4 +1197,57 @@ const failedPanel = await mount('main')
 assert.ok(failedPanel.text.includes('数据时间 2026-11-16（快照）'), 'nothing was replaced, so the snapshot date stays')
 assert.ok(failedPanel.text.includes('在线更新失败（9 个）'), 'and the failure is on screen, not silent')
 
-console.log('client harness: 13 scenarios passed')
+/* ------------------------------------------------------------ scenario 14 */
+
+/**
+ * Two ways a refresh used to look like a dead button:
+ *
+ *   1. A forced load that arrived while a routine request was in flight was
+ *      swallowed — the click sent nothing at all.
+ *   2. A failed load with data already on screen went back to `ready` and said
+ *      nothing, so the old numbers just stayed there.
+ */
+hostOf = makeHost()
+globalThis.fetch = hostOf.fetchImpl
+loadBundle().exports.apply(hostOf.ctx)
+
+const rapidPanel = await mount('main')
+const priceSort = flatten(rapidPanel.tree).find(
+  (node) => node.type === 'button' && render(node.props.children) === '单价',
+)
+const refreshButton = flatten(rapidPanel.tree).find(
+  (node) => node.type === 'button' && render(node.props.children) === '刷新',
+)
+assert.ok(priceSort && refreshButton, 'the panel offers both controls')
+hostOf.state.fetches.length = 0
+priceSort.props.onClick() // starts a routine load
+refreshButton.props.onClick() // and this must not be dropped behind it
+await new Promise((resolve) => setTimeout(resolve, 20))
+assert.ok(
+  hostOf.state.fetches.some((url) => url.includes('refresh=1')),
+  'the refresh queued behind a load still reaches the Host',
+)
+
+/* a failed reload keeps the table and says what happened */
+let calls = 0
+hostOf = makeHost({
+  fetch: async () => {
+    calls += 1
+    return calls === 1
+      ? { ok: true, status: 200, json: async () => payload }
+      : { ok: false, status: 500, json: async () => ({ ok: false, error: { code: 'internal', message: '刷新时网关出错' } }) }
+  },
+})
+globalThis.fetch = hostOf.fetchImpl
+loadBundle().exports.apply(hostOf.ctx)
+
+const survivedPanel = await mount('main')
+const retryButton = flatten(survivedPanel.tree).find(
+  (node) => node.type === 'button' && render(node.props.children) === '刷新',
+)
+retryButton.props.onClick()
+const afterFailure = await mount('main')
+assert.ok(afterFailure.text.includes('刷新时网关出错'), afterFailure.text.slice(0, 400))
+assert.ok(afterFailure.text.includes('Claude Haiku 5.5'), 'the previous table is still there')
+
+console.log('client harness: 14 scenarios passed')

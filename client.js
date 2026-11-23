@@ -498,7 +498,15 @@ window.__ModuleLoader__.load({
           commit({ search: '' })
         },
         load({ sort, currency, force } = {}) {
-          if (inflight !== null) return inflight
+          /**
+           * A forced refresh must never be swallowed by a routine request that
+           * happens to be in flight — that is a click that does nothing, which
+           * reads as a dead button. Queue it behind the current request instead.
+           * (`inflight` is cleared in `finally` before the queued call runs.)
+           */
+          if (inflight !== null) {
+            return force ? inflight.then(() => store.load({ sort, currency, force: true })) : inflight
+          }
           const nextSort = sort ?? state.sort
           const nextCurrency = currency ?? state.currency
           commit({ status: state.data === null ? 'loading' : 'refreshing', error: '', sort: nextSort, currency: nextCurrency })
@@ -1217,6 +1225,16 @@ window.__ModuleLoader__.load({
                 }),
               ]),
             ])
+          : null,
+
+        /**
+         * A refresh that failed while the table already had data used to be
+         * completely silent: status went back to `ready`, the old numbers stayed
+         * and nothing said why. That is indistinguishable from a dead button, so
+         * the message is surfaced here and cleared by the next successful load.
+         */
+        data !== null && snapshot.error
+          ? h('div', { className: 'dmv-note dmv-note-error', key: 'loaderror' }, snapshot.error)
           : null,
 
         data !== null && Array.isArray(data.warnings) && data.warnings.length > 0

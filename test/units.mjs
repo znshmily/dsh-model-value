@@ -571,7 +571,16 @@ test('a forced refresh lands in the same payload, with its own date', async () =
     assert.equal(after.asOf.prices, before.asOf.prices, 'the snapshot date itself never moves')
     /* the scores refreshed from their own feed, in the same round trip */
     assert.equal(after.asOf.scoresSource, 'online', 'the score side refreshed too')
-    assert.equal(after.asOf.scoresEffective, '2026-11-20', 'dated by the feed, not by the clock')
+    assert.equal(
+      after.asOf.scoresEffective,
+      new Date().toISOString().slice(0, 10),
+      'the header dates the refresh, like the price side does',
+    )
+    assert.equal(
+      store.view().scores['anthropic/claude-haiku-5.5'].asOf,
+      '2026-11-20',
+      'while the score itself keeps the date the feed published',
+    )
     assert.equal(after.asOf.onlineScores, 1, 'only the model the table already carries')
     assert.equal(after.asOf.onlineScoresFailed, 0)
     assert.equal(after.rows[0].iq, 44, 'the new score reached the row')

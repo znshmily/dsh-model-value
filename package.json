@@ -1,6 +1,6 @@
 {
   "name": "dsh-model-value",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "private": false,
   "description": "按单价 × 智力给当前接入的每个模型排名（总榜 + 按提供方分组），并列出市面未接入模型的性价比，在输入框模型菜单里直接推荐与切换。Rank models connected to DeepSeek Harness by unit price, intelligence and value for money.",
   "keywords": [
